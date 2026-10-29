@@ -156,7 +156,7 @@ public class View implements ActionListener {
 		if (totalTime > 0) {
 			double elapsedTime = totalTime - remainingTime;
 
-			// Rounds progress percent to nearest whole number using
+			// Rounds progress percent to nearest whole number
 			int progressPercent = (int) Math.round((elapsedTime / totalTime) * 100);
 			progressBar.setValue(progressPercent);
 		}
