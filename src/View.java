@@ -27,6 +27,7 @@ public class View implements ActionListener {
 	private JProgressBar progressBar = new JProgressBar(0, 100);
 
 	// Timer variables
+	private Timer shrinkTimer;
 	private Timer animationTimer;
 	private double totalTime = 0.0;
 	private double remainingTime = 0.0;
@@ -73,6 +74,24 @@ public class View implements ActionListener {
 		pauseResumeButton.addActionListener(this);
 		resetButton.addActionListener(this);
 
+		//shrinking ball timer
+		shrinkTimer = new Timer(timerDelay, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+								if (remainingTime <= 0) {
+					remainingTime = 0;
+					animationTimer.stop();
+
+					input.setEnabled(true);
+					startButton.setEnabled(true);
+					pauseResumeButton.setEnabled(false);
+					pauseResumeButton.setText("Pause");
+								}
+				updateBallSize();
+			}
+		}
+	);
+
 		// Timer
 		animationTimer = new Timer(timerDelay, new ActionListener() {
 			@Override
@@ -91,6 +110,7 @@ public class View implements ActionListener {
 					pauseResumeButton.setText("Pause");
 				}
 				updateUIState();
+				
 			}
 		});
 
@@ -123,6 +143,7 @@ public class View implements ActionListener {
 				pauseResumeButton.setText("Pause");
 
 				animationTimer.start();
+				shrinkTimer.start();
 
 			}
 			// Displays error message if input is less than 0
@@ -172,6 +193,19 @@ public class View implements ActionListener {
 			// Rounds progress percent to nearest whole number
 			int progressPercent = (int) Math.round((elapsedTime / totalTime) * 100);
 			progressBar.setValue(progressPercent);
+
+
+		}
+	}
+	private void updateBallSize() {
+		if (totalTime > 0) {
+
+			
+			double elapsedTime = totalTime - remainingTime;
+			double shrinkFactor = 1 - (elapsedTime / totalTime);
+			int newRadius = (int) (10 * shrinkFactor);
+			ball.setRadius(newRadius);
 		}
 	}
 }
+

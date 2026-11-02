@@ -21,6 +21,7 @@ class Ball extends JPanel {
     public Ball(int ballX, int ballY, int ballSpeedX, int ballSpeedY, Color color, int ballSize) {
         Timer timer = new Timer(20, e -> {
             bounce();
+            
             repaint();
         });
         timer.start();
@@ -50,5 +51,10 @@ class Ball extends JPanel {
         g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.fillOval(ballX, ballY, ballSize, ballSize);
     }
+
+public void setRadius(int newRadius) {
+    this.ballSize = newRadius;
+}
+
 
 }
