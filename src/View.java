@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 public class View implements ActionListener {
 
+	private Ball ball;
+
 	private JFrame frame = new JFrame("Shrinking Ball Animation");
 
 	//  Control buttons
@@ -32,10 +34,20 @@ public class View implements ActionListener {
 	private final int timerDelay = 50;
 
 	public View() {
+
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setLayout(new BorderLayout());
+		frame.setBackground(Color.WHITE);
+
+		ball = new Ball(400, 300, 10, 10, Color.RED, 100);
+		ball.setVisible(true);
+		frame.add(ball, BorderLayout.CENTER);
+		
+		
+	
 
 		// Set up button controls
 		controlPanel.add(new JLabel("Shrink Time (secs):"));
@@ -44,6 +56,7 @@ public class View implements ActionListener {
 		controlPanel.add(pauseResumeButton);
 		controlPanel.add(resetButton);
 		controlPanel.add(countdownLabel);
+		
 
 		progressBar.setValue(0);
 		// Sets text inside progress bar
